@@ -14,9 +14,11 @@ class ApiRequestListener
         $request = $event->getRequest();
         if (strpos($request->getPathInfo(), '/api/') === 0) {
             if (!$request->headers->has('content-type') || $request->headers->get('content-type') !== 'application/json') {
-                $event->setResponse(new JsonResponse([
+                $response = new JsonResponse([
                     'error' => 'Acesso negado!'
-                ], Response::HTTP_BAD_REQUEST), Response::HTTP_BAD_REQUEST);
+                ]);
+
+                $event->setResponse($response, Response::HTTP_BAD_REQUEST);
             }
         }
     }
