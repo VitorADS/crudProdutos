@@ -18,6 +18,7 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
+                'invalid_message' => 'Insira um texto!',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Informe o nome'
@@ -26,6 +27,7 @@ class ProductType extends AbstractType
             ])
             ->add('price', NumberType::class, [
                 'required' => true,
+                'invalid_message' => 'Insira um numero!',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Informe o valor'
@@ -37,6 +39,7 @@ class ProductType extends AbstractType
             ])
             ->add('quantity', IntegerType::class, [
                 'required' => true,
+                'invalid_message' => 'Insira um numero!',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Informe a quantidade'

@@ -14,8 +14,8 @@ abstract class AbstractService
     private EntityRepository $repository;
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        string                         $entityClass
+        private readonly EntityManagerInterface $entityManager,
+        string $entityClass
     )
     {
         $this->repository = $this->entityManager->getRepository($entityClass);
@@ -46,6 +46,9 @@ abstract class AbstractService
         return $this->entityManager;
     }
 
+    /**
+     * @throws Exception
+     */
     public function save(AbstractEntity $entity, ?int $id = null): AbstractEntity
     {
         $this->entityManager->beginTransaction();
@@ -64,6 +67,9 @@ abstract class AbstractService
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function remove(AbstractEntity $entity): bool
     {
         $this->entityManager->beginTransaction();

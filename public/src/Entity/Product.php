@@ -6,7 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-class Product
+class Product extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -62,6 +62,6 @@ class Product
 
     public function __toString(): string
     {
-        return $this->name . ' (' . $this->getPrice() . ')';
+        return $this->name . ' (' . $this->getId() . ')';
     }
 }
