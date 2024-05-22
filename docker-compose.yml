@@ -3,23 +3,16 @@
 ###############################################################################
 version: '3.1'
 services:
-    memcached:
-        image: 'memcached:alpine'
-
-    redis:
-        image: 'redis:alpine'
-
-    postgres:
-        image: 'postgres:15-alpine'
+    mysql:
+        image: 'mysql:8.0'
         working_dir: /application
         volumes:
-            - './db:/var/lib/postgresql/data'
+            - './db:/var/lib/mysql'
         environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=123456
-            - POSTGRES_DB=symfony
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=symfony
         ports:
-            - '8004:5432'
+            - '3306:3306'
 
     webserver:
         image: 'nginx:alpine'
