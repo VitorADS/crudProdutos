@@ -1,0 +1,31 @@
+# Use the front controller as index file.
+DirectoryIndex public/index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # This RewriteRule is used to dynamically discover the RewriteBase path.
+    RewriteCond %{REQUEST_URI}::$0 ^(/.+)/(.*)::\2$
+    RewriteRule .* - [E=BASE:%1/public]
+
+    # Sets the HTTP_AUTHORIZATION header removed by Apache
+    RewriteCond %{HTTP:Authorization} .+
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%0]
+
+    # Removes the /public/index.php/ part from a URL, if present
+    RewriteCond %{ENV:REDIRECT_STATUS} =""
+    RewriteRule ^public/index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
+
+    # If the requested filename exists, simply serve it.
+    # Otherwise rewrite all other queries to the front controller.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ %{ENV:BASE}/public/index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    <IfModule mod_alias.c>
+        # When mod_rewrite is not available, we instruct a temporary redirect
+        # to the front controller explicitly so that the website
+        RedirectMatch 307 ^/$ /public/index.php/
+    </IfModule>
+</IfModule>
