@@ -2,6 +2,20 @@
 /.idea
 /composer.lock
 /symfony.lock
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+/.idea
+###< symfony/framework-bundle ###
+.vscode
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+>>>>>>> dev
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -10,4 +24,9 @@
 /public/bundles/
 /var/
 /vendor/
+<<<<<<< HEAD
+=======
+/symfony.lock
+/composer.lock
+>>>>>>> dev
 ###< symfony/framework-bundle ###
