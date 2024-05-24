@@ -46,14 +46,14 @@ class ProductController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/api/product/edit/{product}', name: 'app_product_edit', methods: ['POST'])]
+    #[Route('/api/product/edit/{product}', name: 'app_product_edit', methods: ['PUT'])]
     public function edit(Request $request, Product $product): JsonResponse
     {
         $productForm = $this->createForm(ProductType::class, $product);
         return $this->submitAndSave($productForm, $product, $request);
     }
 
-    #[Route('/api/product/remove/{product}', name: 'app_product_remove', methods: ['POST'])]
+    #[Route('/api/product/remove/{product}', name: 'app_product_remove', methods: ['DELETE'])]
     public function remove(Request $request, Product $product): JsonResponse
     {
         try{
@@ -83,7 +83,7 @@ class ProductController extends AbstractController
 
             return $this->json([
                 'success' => true,
-                'product' => (string) $product
+                'product' => $product
             ], Response::HTTP_CREATED);
         }
 
