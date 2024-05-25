@@ -50,7 +50,7 @@ class ProductController extends AbstractController
     public function edit(Request $request, Product $product): JsonResponse
     {
         $productForm = $this->createForm(ProductType::class, $product);
-        return $this->submitAndSave($productForm, $product, $request);
+        return $this->submitAndSave($productForm, $product, $request, false);
     }
 
     #[Route('/api/product/remove/{product}', name: 'app_product_remove', methods: ['DELETE'])]
@@ -74,7 +74,7 @@ class ProductController extends AbstractController
     /**
      * @throws Exception
      */
-    private function submitAndSave(FormInterface $productForm, Product $product, Request $request): JsonResponse
+    private function submitAndSave(FormInterface $productForm, Product $product, Request $request, bool $isCreate = true): JsonResponse
     {
         $productForm->submit(json_decode($request->getContent(), true));
 
@@ -84,7 +84,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'success' => true,
                 'product' => $product
-            ], Response::HTTP_CREATED);
+            ], $isCreate ? Response::HTTP_CREATED : Response::HTTP_OK);
         }
 
         $errorForm = $productForm->getErrors(true);
